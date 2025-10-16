@@ -4,6 +4,8 @@ A minimal proof-of-concept service that implements Google OAuth2 login. The proj
 
 For now use google as the OAuth2 provider, but will need to be adapted to Jumpseller (https://jumpseller.pt/support/api/#section/Authentication/OAuth2).
 
+If OAuth2 is not required, simple API token authentication should be sufficient.
+
 
 ## Requirements
 
