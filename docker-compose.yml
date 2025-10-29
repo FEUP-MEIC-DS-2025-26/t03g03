@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:18
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: madeinportugal
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./app/db:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+
+  app:
+    image: node:22
+    working_dir: /madeinportugal-store/app
+    volumes:
+      - ./app:/madeinportugal-store/app
+    command: sh -c "npm install && npm run start"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=madeinportugal
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./app/public:/usr/share/nginx/html:ro
+    depends_on:
+      - app
+
+volumes:
+  db_data:
