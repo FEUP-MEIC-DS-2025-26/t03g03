@@ -62,9 +62,19 @@ cd madeinportugal-store
 
 ---
 
-## **2. Install Node.js Dependencies**
+## **2. Install Node.js and React Dependencies**
+
+From root, go to backend folder and install:
 
 ```bash
+cd app
+npm install
+```
+
+From root, go to frontend folder and install:
+
+```bash
+cd frontend
 npm install
 ```
 
@@ -87,19 +97,25 @@ docker run --name postgres_local \
 
 ## **4. Create and Populate the Database**
 
-1. **Run the schema SQL file:**
+1. **Go to backend folder:**
+
+```bash
+cd app
+```
+
+2. **Run the schema SQL file:**
 
 ```bash
 docker exec -i postgres_local psql -U postgres -d madeinportugal < db/mip-s_schema.sql
 ```
 
-2. **Run the populate SQL file:**
+3. **Run the populate SQL file:**
 
 ```bash
 docker exec -i postgres_local psql -U postgres -d madeinportugal < db/populate.sql
 ```
 
-3. **Verify tables and data:**
+4. **(If needed) Verify tables and data:**
 
 ```bash
 docker exec -it postgres_local psql -U postgres -d madeinportugal
@@ -109,7 +125,10 @@ docker exec -it postgres_local psql -U postgres -d madeinportugal
 
 ## **5. Start the Backend Locally**
 
+From root folder:
+
 ```bash
+cd app
 npm run dev
 ```
 
@@ -118,15 +137,52 @@ npm run dev
 
 ---
 
-## **6. Access the App**
+## **6. Start the Frontend Locally**
 
-* Frontend: `http://localhost:3000/`
+From root folder:
+
+```bash
+cd frontend
+npm run dev
+```
+
+* Starts the frontend on `http://localhost:5173`.
+* Auto-restarts on code changes.
 
 ---
 
-## **7. Next Steps**
+## **7. Access the App (Dev mode)**
 
-* Implement frontend pages in `app/public`.
+* Frontend: `http://localhost:5173`.
+
+---
+
+## **8. Test in Production mode**
+
+Go to frontend folder and build:
+
+```bash
+cd frontend
+npm run build
+```
+
+* This builds the project and places it in `app/public`.
+
+Then, in backend folder:
+
+```bash
+cd app
+npm start
+```
+
+* Check production at `http://localhost:3000`.
+* Does **not** auto-restart on code changes. Must build again to see changes.
+
+---
+
+## **9. Next Steps**
+
+* Implement frontend pages in `frontend/src`.
 * Add new API routes in `app/routes`.
 * Use Docker Compose to run locally with the same environment as the server.
 
