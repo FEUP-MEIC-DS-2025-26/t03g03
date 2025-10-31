@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -8,6 +9,9 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Allow Frontend requests
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 // Routes
 app.use('/api/products', productRoutes);
