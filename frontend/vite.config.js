@@ -4,7 +4,7 @@ import path from 'path'
 
 export default ({ mode }) => {
     // Load environment variables from .env:
-    const env = loadEnv(mode, path.resolve(__dirname));
+    const env = loadEnv(mode, path.resolve(__dirname), '');
     const defineEnv = Object.fromEntries(
       Object.entries(env).map(([k, v]) => [`import.meta.env.${k}`, JSON.stringify(v)])
     );
@@ -17,6 +17,12 @@ export default ({ mode }) => {
         },
         server: {
             port: Number(env.FE_PORT || 5173),
+            proxy: {
+                '/api': {
+                    target: `http://${env.BE_HOST}:${env.BE_PORT}`,
+                    changeOrigin: true,
+                },
+            },
         },
         preview: {
             host: env.HOST || '0.0.0.0',

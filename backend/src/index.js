@@ -11,9 +11,6 @@ const PORT = process.env.BE_PORT || 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Allow CORS requests
-app.use(cors());
-
 // Routes
 app.use('/api/products', productRoutes);
 
