@@ -21,7 +21,7 @@ Make sure you have the following installed on your machine:
 
 ```
 madeinportugal-store/
-├── app/
+├── backend/
 │   ├── index.js
 │   ├── db.js
 │   ├── routes/
@@ -43,11 +43,11 @@ madeinportugal-store/
 └── docker-compose.yml
 ```
 
-* `app/` → Node.js backend
-* `app/public/` → Frontend files (HTML/CSS/JS)
-* `app/routes/` → Express API routes
-* `app/.env` → environment variables
-* `app/package.json` → Node.js dependencies and scripts
+* `backend/` → Node.js backend
+* `backend/public/` → Frontend files (HTML/CSS/JS)
+* `backend/routes/` → Express API routes
+* `backend/.env` → environment variables
+* `backend/package.json` → Node.js dependencies and scripts
 * `nginx/` → Nginx configuration
 * `docker-compose.yml` → Docker services configuration
 
@@ -67,7 +67,7 @@ cd madeinportugal-store
 From root, go to backend folder and install:
 
 ```bash
-cd app
+cd backend
 npm install
 ```
 
@@ -100,7 +100,7 @@ docker run --name postgres_local \
 1. **Go to backend folder:**
 
 ```bash
-cd app
+cd backend
 ```
 
 2. **Run the schema SQL file:**
@@ -128,7 +128,7 @@ docker exec -it postgres_local psql -U postgres -d madeinportugal
 From root folder:
 
 ```bash
-cd app
+cd backend
 npm run dev
 ```
 
@@ -166,12 +166,12 @@ cd frontend
 npm run build
 ```
 
-* This builds the project and places it in `app/public`.
+* This builds the project and places it in `backend/public`.
 
 Then, in backend folder:
 
 ```bash
-cd app
+cd backend
 npm start
 ```
 
@@ -183,7 +183,7 @@ npm start
 ## **9. Next Steps**
 
 * Implement frontend pages in `frontend/src`.
-* Add new API routes in `app/routes`.
+* Add new API routes in `backend/routes`.
 * Use Docker Compose to run locally with the same environment as the server.
 
 ---
