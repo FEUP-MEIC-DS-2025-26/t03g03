@@ -117,11 +117,6 @@ Root:
 
 The app can be run either in development mode (all the changes will take effect immediately) or in production mode with each service in its container.
 
-**<ins>IMPORTANT<ins>**: Must set `DB_HOST` in `.env` file:
-
-- `db` if in production mode
-- `localhost` if in development mode
-
 ### Prerequisites
 
 Make sure you have the following installed on your machine:
@@ -164,7 +159,14 @@ cd frontend
 npm install
 ```
 
-#### 2. Start PostgreSQL Database
+#### 2. Setup environment variables
+
+```bash
+cp .env.dev backend/.env
+cp .env.dev frontend/.env
+```
+
+#### 3. Start PostgreSQL Database
 
 Start a PostgreSQL container on port `5432`:
 
@@ -179,13 +181,13 @@ docker run --name postgres_local \
 Create the Database:
 
 ```bash
-docker exec -i postgres_local psql -U postgres -d madeinportugal < app/db/mip-s_schema.sql
+docker exec -i postgres_local psql -U postgres -d madeinportugal < db/mip-s_schema.sql
 ```
 
 Populate the Database:
 
 ```bash
-docker exec -i postgres_local psql -U postgres -d madeinportugal < app/db/populate.sql
+docker exec -i postgres_local psql -U postgres -d madeinportugal < db/populate.sql
 ```
 
 **If needed** Verify tables and data:
@@ -194,7 +196,7 @@ docker exec -i postgres_local psql -U postgres -d madeinportugal < app/db/popula
 docker exec -it postgres_local psql -U postgres -d madeinportugal
 ```
 
-#### 3. Start the Backend Locally
+#### 4. Start the Backend Locally
 
 From root folder:
 
@@ -205,7 +207,7 @@ npm run dev
 
 - Starts the backend with `nodemon` on `http://localhost:3000`.
 
-#### 4. Start the Frontend Locally
+#### 5. Start the Frontend Locally
 
 From root folder:
 

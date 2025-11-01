@@ -1,18 +1,31 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-export default defineConfig({
-  plugins: [react()],
-  build: {
-    outDir: path.resolve(__dirname, 'public'),
-    emptyOutDir: true
-  },
-  server: {
-    port: 5173,
-  },
-  preview: {
-    host: '0.0.0.0',
-    port: 5173
-  }
-})
+export default ({ mode }) => {
+    // Load environment variables from .env:
+    const env = loadEnv(mode, path.resolve(__dirname));
+    const defineEnv = Object.fromEntries(
+      Object.entries(env).map(([k, v]) => [`import.meta.env.${k}`, JSON.stringify(v)])
+    );
+
+    return defineConfig({
+        plugins: [react()],
+        build: {
+            outDir: path.resolve(__dirname, 'public'),
+            emptyOutDir: true
+        },
+        server: {
+            port: Number(env.FE_PORT || 5173),
+        },
+        preview: {
+            host: env.HOST || '0.0.0.0',
+            port: Number(env.FE_PORT || 5173)
+        },
+        define: {
+            ...defineEnv
+        }
+    });
+}
+
+
