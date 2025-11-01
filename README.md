@@ -85,14 +85,15 @@ t03g03
 │   ├── start.sh
 │   └── vite.config.js
 ├── README.md
-└── start.sh
+├── start-dev.sh
+├── start.sh
+└── stop-dev.sh
 ```
 
 Backend:
 
 - `backend/` → Node.js + Express.js backend
 - `backend/src/routes/` → Express API routes
-- `backend/.env` → environment variables
 - `backend/package.json` → Node.js dependencies and scripts
 
 Frontend:
@@ -110,6 +111,10 @@ Root:
 
 - `docker-compose.yml` → Docker services configuration
 - `start.sh` → Shell file that builds the production environment and Docker containers
+- `start-dev.sh` → Shell file that starts the development environment
+- `stop-dev.sh` → Shell file that stops the development environment
+- `.env.production` → Environment variables for production
+- `.env.dev` → Environment variables for development
 
 ---
 
