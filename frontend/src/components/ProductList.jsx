@@ -23,6 +23,9 @@ export default function ProductList() {
   return (
     <section>
       <h1>🇵🇹 Made in Portugal Store</h1>
+      <p style={{ marginTop: 0 }}>
+        Quick links: <a href="#/leaderboard">Leaderboard</a>
+      </p>
       <p>Welcome! Your Node.js + PostgreSQL + React setup is working!</p>
 
       <button onClick={loadProducts} disabled={loading}>
