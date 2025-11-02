@@ -2,6 +2,7 @@ import './App.css'
 import { useState, useEffect } from 'react'
 import ProductList from './components/ProductList'
 import Leaderboard from './components/Leaderboard'
+import ReviewPage from './components/ReviewPage'
 
 // Very small hash-based router to avoid adding react-router-dom
 function App() {
@@ -15,6 +16,10 @@ function App() {
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
+  // parse product ID from review routes
+  const reviewMatch = route.match(/#\/products\/(\d+)\/reviews/)
+  const productId = reviewMatch ? Number (reviewMatch[1]) : null
+
   return (
     <div className="app">
       <header style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
@@ -23,7 +28,12 @@ function App() {
       </header>
 
       <main style={{ paddingTop: 12 }}>
-        {route === '#/leaderboard' ? <Leaderboard /> : <ProductList />}
+        {route === '#/leaderboard' ? (<Leaderboard />
+      ) : productId ? (
+        <ReviewPage productId ={productId} />
+      ) : (
+      <ProductList />
+      )}
       </main>
     </div>
   )
