@@ -5,7 +5,6 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const app = express();
 const pool = require('./db');
 const productRoutes = require('./routes/products');
-const reviewsRouter = require('./routes/reviews');
 const PORT = process.env.BE_PORT || 3000;
 
 // Middleware
@@ -14,7 +13,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/products', productRoutes);
-app.use('/api', reviewsRouter);
 
 // Serve frontend
 // app.get('*', (req, res) => {
