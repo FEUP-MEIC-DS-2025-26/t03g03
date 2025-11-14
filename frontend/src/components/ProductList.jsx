@@ -39,6 +39,9 @@ export default function ProductList() {
         {products.map(p => (
           <li key={p.id}>
             {p.name} — €{p.price} | Rank: {p.rank}
+            <div style={{ marginTop: '0.5rem' }}>
+            <a href={`#/products/${p.id}/reviews`}>Read reviews</a>
+            </div>
           </li>
         ))}
       </ul>
