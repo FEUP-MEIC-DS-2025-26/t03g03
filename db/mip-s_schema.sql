@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS review CASCADE;
 DROP TABLE IF EXISTS used_points CASCADE;
 DROP TABLE IF EXISTS loyalty CASCADE;
 DROP TABLE IF EXISTS products CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
 DROP TYPE IF EXISTS AWARD_TYPE;
 
 -- Create Enums
@@ -46,4 +47,13 @@ CREATE TABLE loyalty (
     id SERIAL PRIMARY KEY,
     customer_id INTEGER NOT NULL,
     points INTEGER NOT NULL
+);
+
+CREATE TABLE reviews (
+    id SERIAL PRIMARY KEY,
+    product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    author VARCHAR(100) NOT NULL,
+    rating SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 5),
+    comment TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
