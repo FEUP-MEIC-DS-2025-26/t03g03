@@ -17,6 +17,7 @@ export default ({ mode }) => {
         },
         server: {
             port: Number(env.FE_PORT || 5173),
+            host: true, // listen on all network interfaces
             proxy: {
                 '/api': {
                     target: `http://${env.BE_HOST}:${env.BE_PORT}`,
@@ -25,13 +26,15 @@ export default ({ mode }) => {
             },
         },
         preview: {
-            host: env.HOST || '0.0.0.0',
-            port: Number(env.FE_PORT || 5173)
+            host: '0.0.0.0', // bind to all interfaces
+            port: Number(env.FE_PORT || 5173),
+            allowedHosts: [
+                'localhost',
+                'uncaramelized-darron-subpatronal.ngrok-free.dev'
+            ],
         },
         define: {
             ...defineEnv
         }
     });
 }
-
-
